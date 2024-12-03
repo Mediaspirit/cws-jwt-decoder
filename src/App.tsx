@@ -1,34 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Flex, Button, Card, ConfigProvider } from 'antd'
+import { Header } from './components/Header'
+import { TokenInput } from './components/TokenInput'
+import { Divider } from './components/Divider'
+import { Rate } from './components/Rate'
+import { Output } from './components/Output'
+import { useState } from 'react'
+import { jwtDecode } from "jwt-decode";
 
-function App() {
-  const [count, setCount] = useState(0)
+const onDecodePressed = (token: string,
+  setTokenHeader: (header: string) => void,
+  setTokenPayload: (payload: string) => void) => {
+  try {
+    const header = jwtDecode(token, { header: true })
+    const payload = jwtDecode(token)
+    setTokenHeader(JSON.stringify(header))
+    setTokenPayload(JSON.stringify(payload))
+  } catch (error) {
+    setTokenHeader('')
+    setTokenPayload('')
+  }
+}
+
+
+const App: React.FC = () => {
+  const [token, setToken] = useState<string>('')
+  const [tokenHeader, setTokenHeader] = useState<string>('')
+  const [tokenPayload, setTokenPayload] = useState<string>('')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#f6225d',
+          borderRadius: 12,
+        },
+      }}
+    >
+      <Card>
+        <Flex vertical gap="large">
+          <Header />
+          <TokenInput setToken={setToken} />
+          {/* <Output header="Header" />
+          <Output header="Payload" /> */}
+          {tokenHeader && <p>{tokenHeader}</p>}
+          {tokenPayload && <p>{tokenPayload}</p>}
+          <Button type="primary" onClick={() => onDecodePressed(token, setTokenHeader, setTokenPayload)} className='button'>Decode</Button>
+          <Divider />
+          <Button className='button'>Send feedback</Button>
+          <Rate />
+        </Flex>
+      </Card>
+    </ConfigProvider>
   )
 }
 

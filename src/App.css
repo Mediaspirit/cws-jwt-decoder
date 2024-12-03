@@ -1,42 +1,53 @@
 #root {
-  max-width: 1280px;
+  max-width: 300px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.icon {
+  padding: 8px;
+  width: 15px;
+  height: 15px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+  color: #606062;
+  margin: 2px;
 }
 
-.card {
-  padding: 2em;
+.input {
+  height: 50px;
 }
 
-.read-the-docs {
-  color: #888;
+.button {
+  height: 50px;
+}
+
+.divider {
+  width: 20%;
+  height: 1px;
+  background-color: #bab8bb;
+  margin: 0 auto;
+}
+
+.rate {
+  color: #f6225d;
+}
+
+.output {
+  outline: none;
+  caret-color: transparent;
 }
