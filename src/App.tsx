@@ -1,5 +1,5 @@
 import './App.css'
-import { Flex, Button, Card, ConfigProvider } from 'antd'
+import { Flex, Button, Card, ConfigProvider, theme } from 'antd'
 import { Header } from './components/Header'
 import { TokenInput } from './components/TokenInput'
 import { Divider } from './components/Divider'
@@ -14,8 +14,8 @@ const onDecodePressed = (token: string,
   try {
     const header = jwtDecode(token, { header: true })
     const payload = jwtDecode(token)
-    setTokenHeader(JSON.stringify(header))
-    setTokenPayload(JSON.stringify(payload))
+    setTokenHeader(JSON.stringify(header, null, 4))
+    setTokenPayload(JSON.stringify(payload, null, 4))
   } catch (error) {
     setTokenHeader('')
     setTokenPayload('')
@@ -31,6 +31,7 @@ const App: React.FC = () => {
   return (
     <ConfigProvider
       theme={{
+        // algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: '#f6225d',
           borderRadius: 12,
@@ -40,11 +41,15 @@ const App: React.FC = () => {
       <Card>
         <Flex vertical gap="large">
           <Header />
-          <TokenInput setToken={setToken} />
-          {/* <Output header="Header" />
-          <Output header="Payload" /> */}
-          {tokenHeader && <p>{tokenHeader}</p>}
-          {tokenPayload && <p>{tokenPayload}</p>}
+          <TokenInput
+            setToken={setToken}
+            onClear={() => {
+              setToken('')
+              onDecodePressed('', setTokenHeader, setTokenPayload)
+            }}
+          />
+          {tokenHeader && <Output header="Header" value={tokenHeader} />}
+          {tokenPayload && <Output header="Payload" value={tokenPayload} />}
           <Button type="primary" onClick={() => onDecodePressed(token, setTokenHeader, setTokenPayload)} className='button'>Decode</Button>
           <Divider />
           <Button className='button'>Send feedback</Button>
