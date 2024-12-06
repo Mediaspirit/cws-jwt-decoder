@@ -51,16 +51,16 @@ export default {
         "color": "#f0c674"
     },
     "hljs-string": {
-        "color": "#91BD65"
+        "color": "#628A3A"
     },
     "hljs-bullet": {
-        "color": "#91BD65"
+        "color": "#628A3A"
     },
     "hljs-params": {
-        "color": "#91BD65"
+        "color": "#628A3A"
     },
     "hljs-addition": {
-        "color": "#91BD65"
+        "color": "#628A3A"
     },
     "hljs-title": {
         "color": "#81a2be"
