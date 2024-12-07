@@ -2,6 +2,10 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  padding: 0;
+  margin: 0;
+  height: fit-content;
+  min-height: fit-content;
 
   color-scheme: light dark;
   background-color: #242424;
@@ -14,8 +18,10 @@
 
 body {
   margin: 0;
+  padding: 0;
   display: flex;
   place-items: center;
+  height: fit-content;
+  min-height: fit-content;
   min-width: 320px;
-  min-height: 100vh;
 }

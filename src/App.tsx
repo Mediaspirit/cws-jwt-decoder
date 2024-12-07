@@ -1,13 +1,16 @@
 import './App.css'
-import { Flex, Button, Card, ConfigProvider, theme as rtheme } from 'antd'
+import { Flex, Card, Button, ConfigProvider, theme as rtheme } from 'antd'
 import { Header } from './components/Header'
 import { TokenInput } from './components/TokenInput'
 import { Divider } from './components/Divider'
 import { Rate } from './components/Rate'
 import { Output } from './components/Output'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { jwtDecode } from "jwt-decode";
 import { Feedback } from './components/Feedback'
+import { storageGet, storageSet } from './utils/localStorage'
+
+const TOKEN_STORAGE_KEY = 'saved_jwt_token'
 
 const onDecodePressed = (token: string,
   setTokenHeader: (header: string) => void,
@@ -23,12 +26,27 @@ const onDecodePressed = (token: string,
   }
 }
 
-
 const App: React.FC = () => {
   const [token, setToken] = useState<string>('')
   const [tokenHeader, setTokenHeader] = useState<string>('')
   const [tokenPayload, setTokenPayload] = useState<string>('')
   const [theme, setTheme] = useState<string>('light')
+
+  useEffect(() => {
+    // Load saved token on startup
+    storageGet(TOKEN_STORAGE_KEY, (savedToken) => {
+      if (savedToken) {
+        setToken(savedToken)
+        onDecodePressed(savedToken, setTokenHeader, setTokenPayload)
+      }
+    })
+  }, [])
+
+  const handleClose = () => {
+    // Save token before closing
+    storageSet(TOKEN_STORAGE_KEY, token)
+    window.close()
+  }
 
   return (
     <ConfigProvider
@@ -42,8 +60,9 @@ const App: React.FC = () => {
     >
       <Card bordered={false} style={{ borderRadius: 0 }}>
         <Flex vertical gap="large">
-          <Header theme={theme} setTheme={setTheme} />
+          <Header theme={theme} setTheme={setTheme} onClose={handleClose} />
           <TokenInput
+            token={token}
             setToken={setToken}
             onClear={() => {
               setToken('')

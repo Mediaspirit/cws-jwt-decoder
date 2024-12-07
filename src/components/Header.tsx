@@ -8,6 +8,7 @@ const closeIcon = <img src={closeIconSVG} className='icon' />
 interface HeaderProps {
     setTheme: (theme: string) => void
     theme: string
+    onClose: () => void
 }
 
 export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
@@ -17,8 +18,8 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                 if (props.theme === "light") props.setTheme('dark')
                 if (props.theme === "dark") props.setTheme('light')
             }} />
-            <Typography >JWT Decoder</Typography>
-            <Button color="default" variant="text" icon={closeIcon} />
+            <Typography>JWT Decoder</Typography>
+            <Button color="default" variant="text" icon={closeIcon} onClick={props.onClose} />
         </Flex>
     );
 };

@@ -1,8 +1,17 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+  height: fit-content;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-card {
+  height: fit-content !important;
+  min-height: fit-content !important;
 }
 
 .icon {
