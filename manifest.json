@@ -1,23 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "__MSG__appName__",
+  "name": "__MSG_appName__",
   "version": "1.0",
-  "description": "__MSG__shortDesc__",
-  "default_locale": "en",
+  "description": "__MSG_shortDesc__",
+  "default_locale": "ru",
   "permissions": [
     "storage"
   ],
   "action": {
-    "default_popup": "./index.html",
-    "default_icon": "./pic_logo.png"
+    "default_popup": "index.html",
+    "default_icon": "pic_logo.png"
   },
   "icons": {
-    "16": "./pic_logo.png",
-    "32": "./pic_logo.png",
-    "48": "./pic_logo.png"
-  },
-  "author": {
-    "email": "evgeniy.putrin@gmail.com",
-    "name": "Yevgeniy Putrin"
+    "16": "pic_logo.png",
+    "32": "pic_logo.png",
+    "48": "pic_logo.png"
   }
 }
