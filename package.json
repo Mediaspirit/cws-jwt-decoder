@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.5.2",
     "@crxjs/vite-plugin": "^1.0.14",
     "@types/chrome": "^0.0.287",
+    "@types/node": "^22.10.2",
     "@types/react-syntax-highlighter": "^15.5.13",
     "antd": "^5.22.1",
     "copy-to-clipboard": "^3.3.3",

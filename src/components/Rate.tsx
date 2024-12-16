@@ -4,7 +4,7 @@ import { storageGet, storageSet } from '../utils/localStorage'
 
 const RATING_KEY = 'app_rating_score'
 const FEEDBACK_FORM_LINK = 'https://forms.gle/AgvRvyJwZduJtaVF7'
-const GOOD_REVIEW_LINK = 'https://chromewebstore.google.com/detail/___YOUR_EXT___/reviews'
+const GOOD_REVIEW_LINK = 'https://chromewebstore.google.com/detail/decode-jwt/clphejlgpdmjgbnkpjaibcikjgbbicnc/reviews'
 
 
 export const Rate = () => {
