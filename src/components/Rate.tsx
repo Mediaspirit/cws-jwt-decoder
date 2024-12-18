@@ -19,13 +19,16 @@ export const Rate = () => {
     }, [])
 
     const handleChange = (newValue: number) => {
-        setValue(newValue)
-        storageSet(RATING_KEY, newValue)
+        // Only proceed if the rating actually changed
+        if (newValue !== value) {
+            setValue(newValue)
+            storageSet(RATING_KEY, newValue)
 
-        if (newValue > 3) {
-            window.open(GOOD_REVIEW_LINK, '_blank', 'noreferrer')
-        } else {
-            window.open(FEEDBACK_FORM_LINK, '_blank', 'noreferrer')
+            if (newValue > 3) {
+                window.open(GOOD_REVIEW_LINK, '_blank', 'noreferrer')
+            } else {
+                window.open(FEEDBACK_FORM_LINK, '_blank', 'noreferrer')
+            }
         }
     }
 
