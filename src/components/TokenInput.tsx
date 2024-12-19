@@ -5,6 +5,7 @@ interface TokenInputProps {
     onClear: () => void
     token: string
     error: string | null
+    onDecode?: () => void
 }
 
 export const TokenInput = (props: TokenInputProps) => {
@@ -19,6 +20,7 @@ export const TokenInput = (props: TokenInputProps) => {
                 onChange={(e) => props.setToken(e.target.value)}
                 onClear={props.onClear}
                 status={props.error ? "error" : ""}
+                onPressEnter={props.onDecode}
             />
             {props.error && (
                 <div style={{ color: '#ff4d4f', marginTop: '8px', fontSize: '14px' }}>

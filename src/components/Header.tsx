@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                 if (props.theme === "light") props.setTheme('dark')
                 if (props.theme === "dark") props.setTheme('light')
             }} />
-            <Typography>JWT Decoder</Typography>
+            <Typography className='title'>JWT Decoder</Typography>
             <Button color="default" variant="text" icon={closeIcon} onClick={props.onClose} />
         </Flex>
     );

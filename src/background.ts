@@ -5,3 +5,6 @@ chrome.runtime.onInstalled.addListener((details) => {
     });
   }
 });
+
+const UNINSTALL_URL = 'https://chromewebstore.google.com/detail/decode-jwt/clphejlgpdmjgbnkpjaibcikjgbbicnc/reviews';
+chrome.runtime.setUninstallURL(UNINSTALL_URL);

@@ -1,5 +1,5 @@
 import './App.css'
-import { Flex, Card, Button, ConfigProvider, theme as rtheme, message } from 'antd'
+import { Flex, Card, Button, ConfigProvider, theme as rtheme } from 'antd'
 import { Header } from './components/Header'
 import { TokenInput } from './components/TokenInput'
 import { Divider } from './components/Divider'
@@ -15,23 +15,24 @@ const TOKEN_STORAGE_KEY = 'saved_jwt_token'
 const onDecodePressed = (token: string,
   setTokenHeader: (header: string) => void,
   setTokenPayload: (payload: string) => void,
-  setError: (error: string | null) => void) => {
+  setTokenError: (error: string | null) => void) => {
+  setTokenError(null)
+
+  if (token.trim() === '') {
+    setTokenHeader('')
+    setTokenPayload('')
+    return
+  }
+
   try {
-    if (!token.trim()) {
-      setError('Please enter a JWT token');
-      setTokenHeader('');
-      setTokenPayload('');
-      return;
-    }
     const header = jwtDecode(token, { header: true })
     const payload = jwtDecode(token)
     setTokenHeader(JSON.stringify(header, null, 4))
     setTokenPayload(JSON.stringify(payload, null, 4))
-    setError(null);
   } catch (error) {
     setTokenHeader('')
     setTokenPayload('')
-    setError('Invalid JWT token format');
+    setTokenError('Invalid JWT token format')
   }
 }
 
@@ -40,14 +41,14 @@ const App: React.FC = () => {
   const [tokenHeader, setTokenHeader] = useState<string>('')
   const [tokenPayload, setTokenPayload] = useState<string>('')
   const [theme, setTheme] = useState<string>('light')
-  const [error, setError] = useState<string | null>(null)
+  const [tokenError, setTokenError] = useState<string | null>(null)
 
   useEffect(() => {
     // Load saved token on startup
     storageGet(TOKEN_STORAGE_KEY, (savedToken) => {
       if (savedToken) {
         setToken(savedToken)
-        onDecodePressed(savedToken, setTokenHeader, setTokenPayload, setError)
+        onDecodePressed(savedToken, setTokenHeader, setTokenPayload, setTokenError)
       }
     })
   }, [])
@@ -74,16 +75,17 @@ const App: React.FC = () => {
           <TokenInput
             token={token}
             setToken={setToken}
-            error={error}
             onClear={() => {
               setToken('')
-              setError(null)
-              onDecodePressed('', setTokenHeader, setTokenPayload, setError)
+              setTokenError(null)
+              onDecodePressed('', setTokenHeader, setTokenPayload, setTokenError)
             }}
+            error={tokenError}
+            onDecode={() => onDecodePressed(token, setTokenHeader, setTokenPayload, setTokenError)}
           />
           {tokenHeader && <Output theme={theme} header="Header" value={tokenHeader} />}
           {tokenPayload && <Output theme={theme} header="Payload" value={tokenPayload} />}
-          <Button type="primary" onClick={() => onDecodePressed(token, setTokenHeader, setTokenPayload, setError)} className='button'>Decode</Button>
+          <Button type="primary" onClick={() => onDecodePressed(token, setTokenHeader, setTokenPayload, setTokenError)} className='button'>Decode</Button>
           <Divider />
           <Feedback />
           <Rate />
